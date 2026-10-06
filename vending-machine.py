@@ -31,10 +31,12 @@ def vending_process(balence, confirm, cost, itemcost, paid, costcheck, changeche
                 confirm = True
 
             elif itemchoice >= 1 and itemchoice <= 13:
+                itemchoice = itemchoice - 1
                 costofitem = itemslistcost[itemchoice]
                 print("Selected item: ",  itemlist[itemchoice], f"for £{costofitem:.2f} ")
-                check = int(input(f"Input the number {itemchoice} again to confirm adding this item to your purchase " ))
-
+                check = int(input(f"Input the number {itemchoice + 1} again to confirm adding this item to your purchase " ))
+                itemchoice = itemchoice + 1
+                
                 if check != itemchoice:
                     print("Item not added. ")
 
