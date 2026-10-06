@@ -13,7 +13,7 @@ itemcount = 0
 correctamoun = False
 
 itemlist = ["Cereal Bar", "Doritos", "Squares", "Ruffles", "Walkers", "Freddo", "Twix", "Bounty", "Chocolate Bar", "Bottled Water", "Fanta", "Coke", "Haribo", "Moam"]
-itemslistcost = [0.5, 1.2, 1.0, 1.2, 0.6, 9.99, 1.0, 0.9, 0.8, 0.9, 1.5, 1.6, 1.3, 0.9]
+itemslistcost = [0.5, 1.2, 1.0, 1.2, 0.6, 9.90, 1.0, 0.9, 0.8, 0.9, 1.5, 1.6, 1.3, 0.9]
 items = []
 
 def vending_process(balence, confirm, cost, itemcost, paid, costcheck, changecheck, check, costofitem, items, list, itemcount, correctamoun):
