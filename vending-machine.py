@@ -19,15 +19,15 @@ items = [] # Holds selected items
 def vending_process(balence, confirm, cost, itemcost, paid, costcheck, changecheck, check, costofitem, items, list, itemcount, correctamoun):
 
     def coinsystem(balence): # Balence checker 
-        balence = float(input("Enter coins: (EG. 1.00 = £1) "))
+        balence = float(input("Enter coins: (EG. 1.00 = £1) ")) # Asks user to input their money
         return balence
 
     def itemselection(confirm, cost, itemcost, check, costofitem, items):
         while confirm == False:
-            itemchoice = int(input("Enter '000' to confirm item slection - Please enter item ID: "))
+            itemchoice = int(input("Enter '000' to confirm item slection - Please enter item ID: ")) # confirm
 
 
-            if itemchoice == 000:
+            if itemchoice == 000: # If the user enters 000 it kicks the user out of the while loop
                 confirm = True
 
             elif itemchoice >= 1 and itemchoice <= 13:
