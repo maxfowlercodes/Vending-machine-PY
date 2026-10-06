@@ -12,13 +12,13 @@ costofitem = 0
 itemcount = 0
 correctamoun = False
 
-itemlist = ["Cereal Bar", "Doritos", "Squares", "Ruffles", "Walkers", "Freddo", "Twix", "Bounty", "Chocolate Bar", "Bottled Water", "Fanta", "Coke", "Haribo", "Moam"]
-itemslistcost = [0.5, 1.2, 1.0, 1.2, 0.6, 9.90, 1.0, 0.9, 0.8, 0.9, 1.5, 1.6, 1.3, 0.9]
-items = []
+itemlist = ["Cereal Bar", "Doritos", "Squares", "Ruffles", "Walkers", "Freddo", "Twix", "Bounty", "Chocolate Bar", "Bottled Water", "Fanta", "Coke", "Haribo", "Moam"] # Sets the name of items
+itemslistcost = [0.5, 1.2, 1.0, 1.2, 0.6, 9.90, 1.0, 0.9, 0.8, 0.9, 1.5, 1.6, 1.3, 0.9] # Sets the price of each item. [0] = 0.5 = Cereal Bar  - Change numbers here to update prices
+items = [] # Holds selected items
 
 def vending_process(balence, confirm, cost, itemcost, paid, costcheck, changecheck, check, costofitem, items, list, itemcount, correctamoun):
 
-    def coinsystem(balence):
+    def coinsystem(balence): # Balence checker 
         balence = float(input("Enter coins: (EG. 1.00 = £1) "))
         return balence
 
@@ -36,7 +36,7 @@ def vending_process(balence, confirm, cost, itemcost, paid, costcheck, changeche
                 print("Selected item: ",  itemlist[itemchoice], f"for £{costofitem:.2f} ")
                 check = int(input(f"Input the number {itemchoice + 1} again to confirm adding this item to your purchase " ))
                 itemchoice = itemchoice + 1
-                
+
                 if check != itemchoice:
                     print("Item not added. ")
 
@@ -64,12 +64,18 @@ def vending_process(balence, confirm, cost, itemcost, paid, costcheck, changeche
             print(f"More money is needed to cover cost of items, please enter {balence}")
             extramoney = float(input("Enter coins: (EG. 1.00 = £1) "))
 
+
             while correctamoun == False:
                 if extramoney <= balence:
                     extramoney = float(input(f"{extramoney} returned, please re-enter the more or the correct amount of money. "))
                     if extramoney >= balence:
                         correctamoun = True
 
+                    else:
+                        correctamoun = True
+
+                else:
+                    correctamoun = True
 
             changecheck = True
             balence = extramoney - balence
