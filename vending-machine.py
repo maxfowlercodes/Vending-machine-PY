@@ -1,3 +1,6 @@
+import sys
+
+
 cost = 0
 balence = 0
 change = 0
@@ -11,10 +14,14 @@ check = 0
 costofitem = 0
 itemcount = 0
 correctamoun = False
+startsystemcheck = True
 
 itemlist = ["Cereal Bar", "Doritos", "Squares", "Ruffles", "Walkers", "Freddo", "Twix", "Bounty", "Chocolate Bar", "Bottled Water", "Fanta", "Coke", "Haribo", "Moam"] # Sets the name of items
 itemslistcost = [0.5, 1.2, 1.0, 1.2, 0.6, 9.90, 1.0, 0.9, 0.8, 0.9, 1.5, 1.6, 1.3, 0.9] # Sets the price of each item. [0] = 0.5 = Cereal Bar  - Change numbers here to update prices
 items = [] # Holds selected items
+
+
+        
 
 def vending_process(balence, confirm, cost, itemcost, paid, costcheck, changecheck, check, costofitem, items, list, itemcount, correctamoun):
 
@@ -121,17 +128,35 @@ def vending_process(balence, confirm, cost, itemcost, paid, costcheck, changeche
             elif balence == 0:
                 costcheck = True
 
+            else:
+                print("It has not been possible to return your change, this is because we only store £1, 50P, 20P and 10P.")
+                costcheck = True
 
 
     print(" Cereal Bar = 1 \n Doritos = 2 \n Squares = 3 \n Ruffles = 4 \n Walkers = 5 \n Freddo = 6 \n Twix = 7 \n Bounty = 8 \n Chocolate Bar = 9 \n Bottled Water = 10 \n Fanta = 11 \n Coke = 12 \n Haribo = 13 \n Moam = 14")
     balence = coinsystem(balence)
     cost = itemselection(confirm, cost, itemcost, check, costofitem, items)
     checkchange(cost, balence, paid, costcheck, changecheck, correctamoun)
-    print("Change has been returned")
+    print("Change has been returned, if coins allow.")
     print(f"Now pushing items: ")
+    startsystemcheck = False
 
     for x in range(len(items)):
         print(items[itemcount])
         itemcount = itemcount + 1
 
-vending_process(balence, confirm, cost, itemcost, paid, costcheck, changecheck, check, costofitem, items, list, itemcount, correctamoun)
+
+
+while startsystemcheck == True:
+    startsystem = int(input("Welcome Customer, please press 1 to procced to purchase or 2 to shutdown machine. "))
+
+    if startsystem == 1:
+        startsystemcheck = False
+        vending_process(balence, confirm, cost, itemcost, paid, costcheck, changecheck, check, costofitem, items, list, itemcount, correctamoun)
+
+    elif startsystem == 2:
+        print("Shutting down vending machine.")
+        sys.exit()
+
+    else:
+        print("Please enter 1 or 0.")
