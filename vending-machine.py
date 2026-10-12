@@ -97,9 +97,6 @@ def vending_process(balence, confirm, cost, item_cost, paid, cost_check, change_
             print("We owe you some change!")
             cost_check = False
 
-    #for coin in coins:
-        #if balence >= coin:
-
 
         while cost_check == False:
             for coin in posotive_coins:
@@ -107,7 +104,7 @@ def vending_process(balence, confirm, cost, item_cost, paid, cost_check, change_
                     cost_check = False
 
                 elif balence >= coin:
-                    print(f"{coin:.2f} Returned")
+                    print(f"£{coin:.2f} Returned")
                     balence = balence - coin
                     balence = round(balence, 1)
             
