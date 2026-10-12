@@ -28,3 +28,7 @@ CD into the folder with the files, using **cd foldername**
 > python vending-machine.py
 
 The script will then load within your terminal and run.
+
+
+
+This python system was built by [Max Fowler](https://github.com/maxfowlercodes).
