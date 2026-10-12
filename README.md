@@ -10,11 +10,11 @@ Ensure you enter the correct ID's or you will be stuck in a loop.
 # How to run
 
 **GH CLi** 
-gh repo clone maxfowlercodes/Vending-machine-PY
+> gh repo clone maxfowlercodes/Vending-machine-PY
 
 
 **Git installed**
-git pull https://github.com/maxfowlercodes/Vending-machine-PY.git main 
+ > git pull https://github.com/maxfowlercodes/Vending-machine-PY.git main 
 
 
 **Next Steps:**
