@@ -23,33 +23,33 @@ def vending_process(balence, confirm, cost, itemcost, paid, costcheck, changeche
         return balence
 
     def itemselection(confirm, cost, itemcost, check, costofitem, items):
-        while confirm == False:
-            itemchoice = int(input("Enter '000' to confirm item slection - Please enter item ID: ")) # confirm
+        while confirm == False: # While items have not been confirmed run script below
+            itemchoice = int(input("Enter '000' to confirm item slection - Please enter item ID: ")) # Asking for item ID's or 000 to confirm the order/items chosen
 
 
             if itemchoice == 000: # If the user enters 000 it kicks the user out of the while loop
-                confirm = True
+                confirm = True # Set's confirm to True so it stops asking them to enter items/confirm items
 
-            elif itemchoice >= 1 and itemchoice <= 13:
-                itemchoice = itemchoice - 1
-                costofitem = itemslistcost[itemchoice]
-                print("Selected item: ",  itemlist[itemchoice], f"for £{costofitem:.2f} ")
-                check = int(input(f"Input the number {itemchoice + 1} again to confirm adding this item to your purchase " ))
-                itemchoice = itemchoice + 1
+            elif itemchoice >= 1 and itemchoice <= 13: # If the item chosen is within the range of item ID's continue.
+                itemchoice = itemchoice - 1 # Changes the ID to match list syntax [0] = 1st position in the list.
+                costofitem = itemslistcost[itemchoice] # Check the itemslistcost for the cost by using the itemchoice as the number variable as the user inputed this earlier, Then save this to cost of item
+                print("Selected item: ",  itemlist[itemchoice], f"for £{costofitem:.2f} ") # Tells the user what item they added and the cost to 2 decimal places
+                check = int(input(f"Input the number {itemchoice + 1} again to confirm adding this item to your purchase " )) # Asks the user to enter the ID again to confirm
+                itemchoice = itemchoice + 1 # Resets the value to check the right value.
 
-                if check != itemchoice:
-                    print("Item not added. ")
+                if check != itemchoice: # If the answer is not ID then run this script
+                    print("Item not added. ") # Does not add it to the cost/cancels the additon of this item.
 
-                else:
-                    itemchoice = itemchoice - 1
-                    itemcost = itemslistcost[itemchoice]
-                    cost = cost + itemcost
-                    items.append(itemlist[itemchoice])
+                else:  # Anything else and this bit of script is run
+                    itemchoice = itemchoice - 1 # Resets the value again to now print the correct price as list placment is different.
+                    itemcost = itemslistcost[itemchoice] # Sets the cost of the single item by using the choice ID as the list locator. 
+                    cost = cost + itemcost # Add the single itemcost to the overall cost of all items
+                    items.append(itemlist[itemchoice]) # Adds the purchased item to the items[] list by using ID to locate the positon within the itemlist[]
 
-            else:
-                print("Please enter a valid ID code for an item.")
-                itemselection(confirm, cost, itemcost)
-
+            else: # If anything other than an ID is entered run this script
+                print("Please enter a valid ID code for an item.") # Prints text in speech marks
+                itemselection(confirm, cost, itemcost) # Makes the section of code that was defined re-run to mimic a loop.
+ 
         return cost 
 
 
