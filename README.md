@@ -1,4 +1,4 @@
-# Vending-machine-PY
+# Vending Machine - Python
 
 A vending machine software built by Max Fowler within python code
 
@@ -9,7 +9,7 @@ Ensure you enter the correct ID's or you will be stuck in a loop.
 
 # How to run
 
-**GH CLi** 
+**GH CLI** 
 > gh repo clone maxfowlercodes/Vending-machine-PY
 
 
@@ -23,8 +23,8 @@ Ensure python is installed on your device, and on your code editor.
 You can do this by running python --version. If no version shows it is not properly installed on your device.
 
 
-CD into the folder with the files, using cd foldername
+CD into the folder with the files, using **cd foldername**
 
-Run python vending-machine.py
+> python vending-machine.py
 
 The script will then load within your terminal and run.
