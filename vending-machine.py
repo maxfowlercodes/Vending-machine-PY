@@ -8,7 +8,7 @@ combined_balence = 0
 confirm = False
 item_cost = 0
 paid = False
-cost_check = False
+cost_check = True
 change_check = True
 check = 0
 cost_of_item = 0
@@ -20,6 +20,7 @@ itemlist = ["Cereal Bar", "Doritos", "Squares", "Ruffles", "Walkers", "Freddo", 
 itemslistcost = [0.5, 1.2, 1.0, 1.2, 0.6, 9.90, 1.0, 0.9, 0.8, 0.9, 1.5, 1.6, 1.3, 0.9] # Sets the price of each item. [0] = 0.5 = Cereal Bar  - Change numbers here to update prices
 items = [] # Holds selected items
 coins = [1, 0.5, 0.2, 0.1, -0.1, -0.2, -0.5, -1]
+posotive_coins = [1, 0.5, 0.2, 0.1]
 
 
         
@@ -85,59 +86,34 @@ def vending_process(balence, confirm, cost, item_cost, paid, cost_check, change_
                 else:
                     correct_amount = True
 
-            change_check = True
+            costcheck = False
             balence = extramoney - balence
             balence = round(balence, 2)
 
-        elif balence == 0:
+        if balence == 0:
             print("No more money is needed.")
-            cost_check = True
+
         else:
             print("We owe you some change!")
             cost_check = False
 
+    #for coin in coins:
+        #if balence >= coin:
+
 
         while cost_check == False:
-            if balence >= coins[0]:
-                print("£1 Returned")
-                balence = balence - coins[0]
+            for coin in posotive_coins:
+                if balence <= 0:
+                    cost_check = False
+
+                elif balence >= coin:
+                    print(f"{coin:.2f} Returned")
+                    balence = balence - coin
+                    balence = round(balence, 1)
             
-            elif balence >= coins[1]:
-                print("50P Returned")
-                balence = balence - coins[1]
-                
-            elif balence >= coins[2]:
-                print("20P Returned")
-                balence = balence - coins[2]
-                
-            elif balence >= coins[3]:
-                print("10P Returned")
-                balence = balence - coins[3]
-                
-            elif balence <= coins[7] and change_check == False:
-                balence = balence + coins[0]
-                print("£1 Returned")
-                
-            elif balence >= coins[6] and change_check == False:
-                balence = balence + coins[1]
-                print("50P Returned")
-                
 
-            elif balence >= coins[5] and change_check == False:
-                balence = balence + coins[2]
-                print("20P Returned")
-                
+            cost_check = True
 
-            elif balence >= coins[4] and change_check == False:
-                balence = balence + coins[3]
-                print("10P Returned")
-                
-            elif round(balence, 1) == 0:
-                cost_check = True
-
-            else:
-                print("It has not been possible to return your change, this is because we only store £1, 50P, 20P and 10P.")
-                cost_check = True
 
 
     print(" Cereal Bar = 1 \n Doritos = 2 \n Squares = 3 \n Ruffles = 4 \n Walkers = 5 \n Freddo = 6 \n Twix = 7 \n Bounty = 8 \n Chocolate Bar = 9 \n Bottled Water = 10 \n Fanta = 11 \n Coke = 12 \n Haribo = 13 \n Moam = 14")
