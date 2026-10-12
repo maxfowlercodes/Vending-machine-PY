@@ -4,32 +4,33 @@ import sys
 cost = 0
 balence = 0
 change = 0
-combinedbal = 0
+combined_balence = 0
 confirm = False
-itemcost = 0
+item_cost = 0
 paid = False
-costcheck = False
-changecheck = True
+cost_check = False
+change_check = True
 check = 0
-costofitem = 0
-itemcount = 0
-correctamoun = False
-startsystemcheck = True
+cost_of_item = 0
+item_count = 0
+correct_amount = False
+start_system_check = True
 
 itemlist = ["Cereal Bar", "Doritos", "Squares", "Ruffles", "Walkers", "Freddo", "Twix", "Bounty", "Chocolate Bar", "Bottled Water", "Fanta", "Coke", "Haribo", "Moam"] # Sets the name of items
 itemslistcost = [0.5, 1.2, 1.0, 1.2, 0.6, 9.90, 1.0, 0.9, 0.8, 0.9, 1.5, 1.6, 1.3, 0.9] # Sets the price of each item. [0] = 0.5 = Cereal Bar  - Change numbers here to update prices
 items = [] # Holds selected items
+coins = [1, 0.5, 0.2, 0.1, -0.1, -0.2, -0.5, -1]
 
 
         
 
-def vending_process(balence, confirm, cost, itemcost, paid, costcheck, changecheck, check, costofitem, items, list, itemcount, correctamoun):
+def vending_process(balence, confirm, cost, item_cost, paid, cost_check, change_check, check, cost_of_item, items, list, item_count, correct_amount):
 
     def coinsystem(balence): # Balence checker 
         balence = float(input("Enter coins: (EG. 1.00 = £1) ")) # Asks user to input their money
         return balence
 
-    def itemselection(confirm, cost, itemcost, check, costofitem, items):
+    def itemselection(confirm, cost, item_cost, check, cost_of_item, items):
         while confirm == False: # While items have not been confirmed run script below
             itemchoice = int(input("Enter '000' to confirm item slection - Please enter item ID: ")) # Asking for item ID's or 000 to confirm the order/items chosen
 
@@ -39,8 +40,8 @@ def vending_process(balence, confirm, cost, itemcost, paid, costcheck, changeche
 
             elif itemchoice >= 1 and itemchoice <= 13: # If the item chosen is within the range of item ID's continue.
                 itemchoice = itemchoice - 1 # Changes the ID to match list syntax [0] = 1st position in the list.
-                costofitem = itemslistcost[itemchoice] # Check the itemslistcost for the cost by using the itemchoice as the number variable as the user inputed this earlier, Then save this to cost of item
-                print("Selected item: ",  itemlist[itemchoice], f"for £{costofitem:.2f} ") # Tells the user what item they added and the cost to 2 decimal places
+                cost_of_item = itemslistcost[itemchoice] # Check the itemslistcost for the cost by using the itemchoice as the number variable as the user inputed this earlier, Then save this to cost of item
+                print("Selected item: ",  itemlist[itemchoice], f"for £{cost_of_item:.2f} ") # Tells the user what item they added and the cost to 2 decimal places
                 check = int(input(f"Input the number {itemchoice + 1} again to confirm adding this item to your purchase " )) # Asks the user to enter the ID again to confirm
                 itemchoice = itemchoice + 1 # Resets the value to check the right value.
 
@@ -49,18 +50,18 @@ def vending_process(balence, confirm, cost, itemcost, paid, costcheck, changeche
 
                 else:  # Anything else and this bit of script is run
                     itemchoice = itemchoice - 1 # Resets the value again to now print the correct price as list placment is different.
-                    itemcost = itemslistcost[itemchoice] # Sets the cost of the single item by using the choice ID as the list locator. 
-                    cost = cost + itemcost # Add the single itemcost to the overall cost of all items
+                    item_cost = itemslistcost[itemchoice] # Sets the cost of the single item by using the choice ID as the list locator. 
+                    cost = cost + item_cost # Add the single item_cost to the overall cost of all items
                     items.append(itemlist[itemchoice]) # Adds the purchased item to the items[] list by using ID to locate the positon within the itemlist[]
 
             else: # If anything other than an ID is entered run this script
                 print("Please enter a valid ID code for an item.") # Prints text in speech marks
-                itemselection(confirm, cost, itemcost) # Makes the section of code that was defined re-run to mimic a loop.
+                itemselection(confirm, cost, item_cost) # Makes the section of code that was defined re-run to mimic a loop.
  
         return cost 
 
 
-    def checkchange(cost, balence, paid, costcheck, changecheck, correctamoun):
+    def checkchange(cost, balence, paid, cost_check, change_check, correct_amount):
 
         balence = balence - cost
         balence = round(balence, 2)
@@ -72,87 +73,93 @@ def vending_process(balence, confirm, cost, itemcost, paid, costcheck, changeche
             extramoney = float(input("Enter coins: (EG. 1.00 = £1) "))
 
 
-            while correctamoun == False:
+            while correct_amount == False:
                 if extramoney <= balence:
                     extramoney = float(input(f"{extramoney} returned, please re-enter the more or the correct amount of money. "))
                     if extramoney >= balence:
-                        correctamoun = True
+                        correct_amount = True
 
                     else:
-                        correctamoun = True
+                        correct_amount = True
 
                 else:
-                    correctamoun = True
+                    correct_amount = True
 
-            changecheck = True
+            change_check = True
             balence = extramoney - balence
             balence = round(balence, 2)
+
+        elif balence == 0:
+            print("No more money is needed.")
+            cost_check = True
         else:
             print("We owe you some change!")
-            costcheck = False
+            cost_check = False
 
 
-        while costcheck == False:
-            if balence >= 1:
-                balence = balence - 1
-                balence = round(balence, 1)
+        while cost_check == False:
+            if balence >= coins[0]:
                 print("£1 Returned")
-            elif balence >= 0.5:
-                balence = balence - 0.5
-                balence = round(balence, 1)
+                balence = balence - coins[0]
+            
+            elif balence >= coins[1]:
                 print("50P Returned")
-            elif balence >= 0.2:
-                balence = balence - 0.2
-                balence = round(balence, 1)
+                balence = balence - coins[1]
+                
+            elif balence >= coins[2]:
                 print("20P Returned")
-            elif balence >= 0.1:
-                balence = balence - 0.1
-                balence = round(balence, 1)
+                balence = balence - coins[2]
+                
+            elif balence >= coins[3]:
                 print("10P Returned")
-            elif balence <= -1 and changecheck == False:
-                balence = balence + 1
-                balence = round(balence, 1)
+                balence = balence - coins[3]
+                
+            elif balence <= coins[7] and change_check == False:
+                balence = balence + coins[0]
                 print("£1 Returned")
-            elif balence >= -0.5 and changecheck == False:
-                balence = balence + 0.5
-                balence = round(balence, 1)
+                
+            elif balence >= coins[6] and change_check == False:
+                balence = balence + coins[1]
                 print("50P Returned")
-            elif balence >= -0.2 and changecheck == False:
-                balence = balence + 0.2
-                balence = round(balence, 1)
+                
+
+            elif balence >= coins[5] and change_check == False:
+                balence = balence + coins[2]
                 print("20P Returned")
-            elif balence >= -0.1 and changecheck == False:
-                balence = balence + 0.1
-                balence = round(balence, 1)
+                
+
+            elif balence >= coins[4] and change_check == False:
+                balence = balence + coins[3]
                 print("10P Returned")
-            elif balence == 0:
-                costcheck = True
+                
+            elif round(balence, 1) == 0:
+                cost_check = True
 
             else:
                 print("It has not been possible to return your change, this is because we only store £1, 50P, 20P and 10P.")
-                costcheck = True
+                cost_check = True
 
 
     print(" Cereal Bar = 1 \n Doritos = 2 \n Squares = 3 \n Ruffles = 4 \n Walkers = 5 \n Freddo = 6 \n Twix = 7 \n Bounty = 8 \n Chocolate Bar = 9 \n Bottled Water = 10 \n Fanta = 11 \n Coke = 12 \n Haribo = 13 \n Moam = 14")
     balence = coinsystem(balence)
-    cost = itemselection(confirm, cost, itemcost, check, costofitem, items)
-    checkchange(cost, balence, paid, costcheck, changecheck, correctamoun)
-    print("Change has been returned, if coins allow.")
+    cost = itemselection(confirm, cost, item_cost, check, cost_of_item, items)
+    checkchange(cost, balence, paid, cost_check, change_check, correct_amount)
+    print("Any remaning change has been returned if coins allow.")
     print(f"Now pushing items: ")
-    startsystemcheck = False
+    start_system_check = False
 
     for x in range(len(items)):
-        print(items[itemcount])
-        itemcount = itemcount + 1
+        print(items[item_count])
+        item_count = item_count + 1
 
 
 
-while startsystemcheck == True:
+while start_system_check == True:
     startsystem = int(input("Welcome Customer, please press 1 to procced to purchase or 2 to shutdown machine. "))
 
     if startsystem == 1:
-        startsystemcheck = False
-        vending_process(balence, confirm, cost, itemcost, paid, costcheck, changecheck, check, costofitem, items, list, itemcount, correctamoun)
+        start_system_check = False
+        vending_process(balence, confirm, cost, item_cost, paid, cost_check, change_check, check, cost_of_item, items, list, item_count, correct_amount)
 
     elif startsystem == 2:
         print("Shutting down vending machine.")
