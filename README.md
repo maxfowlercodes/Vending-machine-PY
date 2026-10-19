@@ -19,7 +19,7 @@ If you enter anything with a .5 remainder it will not be returned due to 5P coin
 
 
 **Git installed**
- > git init /n
+ > git init - 
  > git pull https://github.com/maxfowlercodes/Vending-machine-PY.git main 
 
 
