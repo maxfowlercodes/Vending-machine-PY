@@ -3,7 +3,7 @@
 A vending machine software built by Max Fowler within python code
 
 # General Infomation
-No external imports are required for this python code - only import is **sys** which is installed in python already.
+No external imports are required for this python code - only import is **sys** and **time** which are installed in python already.
 If you would like to change the items or the cost of any of the items, please do this from the **<ins>itemlist</ins>** and the **<ins>itemslistcost</ins>**.
 Ensure you enter the correct ID's or you will be stuck in a loop.
 

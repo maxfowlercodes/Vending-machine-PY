@@ -28,8 +28,10 @@ posotive_coins = [1, 0.5, 0.2, 0.1]
 def vending_process(balence, confirm, cost, item_cost, paid, cost_check, change_check, check, cost_of_item, items, list, item_count, correct_amount, start_system_check):
     if start_system_check == False:
         def coinsystem(balence): # Balence checker 
-            balence = float(input("Enter coins: (EG. 1.00 = £1) ")) # Asks user to input their money
-            if balence != float:
+            balence = input("Enter coins: (EG. 1.00 = £1) ") # Asks user to input their money
+            try:
+                balence = float(balence)
+            except:
                 print("Please only enter a nuber such as 0.5 or 1.00")
                 coinsystem(balence)
             return balence
@@ -71,89 +73,92 @@ def vending_process(balence, confirm, cost, item_cost, paid, cost_check, change_
 
         def checkchange(cost, balence, paid, cost_check, change_check, correct_amount):
 
-            balence = balence - cost
-            balence = round(balence, 2)
+            balence = balence - cost # Calculates the remaning balence which may be negative
+            balence = round(balence, 2) # Fixes any python math bugs
 
 
-            if balence < 0:
-                balence = abs(balence)
-                print(f"More money is needed to cover cost of items, please enter {balence}")
-                extramoney = float(input("Enter coins: (EG. 1.00 = £1) "))
+            if balence < 0: # If the balence is negative
+                balence = abs(balence) # Make it posotive 
+                print(f"More money is needed to cover cost of items, please enter £{balence:.2f}") # Prints how much more money is needed to cover the ammout.
+                extramoney = float(input("Enter coins: (EG. 1.00 = £1) ")) # Asks for their input of more coins
 
 
-                while correct_amount == False:
-                    if extramoney <= balence:
-                        extramoney = float(input(f"{extramoney} returned, please re-enter the more or the correct amount of money. "))
-                        if extramoney >= balence:
-                            correct_amount = True
+                while correct_amount == False: # Runs straight after, as already false.
+                    if extramoney <= balence: # If balence is bigger than extra money entered run this:
+                        extramoney = float(input(f"{extramoney} returned, please re-enter the more or the correct amount of money. ")) # Asks for more money and returns the old ammount.
+                        if extramoney >= balence: # If extramoney is bigger than balence
+                            correct_amount = True # Set correct ammount to true to escape the while loop.
 
                         else:
-                            correct_amount = True
+                            correct_amount = False # Any errors on checking leave it as false.
 
                     else:
-                        correct_amount = True
-
-                costcheck = False
-                balence = extramoney - balence
-                balence = round(balence, 2)
-
-            if balence == 0:
-                print("No more money is needed.")
-
-            else:
-                print("We owe you some change!")
-                cost_check = False
+                        correct_amount = True # If enough money was entered it proceeds and exits while loop.
 
 
-            while cost_check == False:
-                for coin in posotive_coins:
-                    if balence <= 0:
-                        cost_check = False
+                balence = extramoney - balence # New balence is showing minusing the money entered from the old balence.
+                balence = round(balence, 2) # Rounded to fix python maths.
 
-                    elif balence >= coin:
-                        print(f"£{coin:.2f} Returned")
-                        balence = balence - coin
-                        balence = round(balence, 1)
+            if balence == 0: # If balence is 0
+                print("No more money is needed.") # Prints the fact that no more money is needed to be entered or returned.
+
+            else: # If it's not 0
+                print("We owe you some change!") # Prints the fact we owe the user change.
+                cost_check = False # Set's cost check to false as it was true before.
+
+
+            while cost_check == False: # Starts while loop
+                for coin in posotive_coins: # For the amount of coins in the coins we have run this loop.
+                    if balence <= 0: # If balence is bigger than 0 
+                        cost_check = True # Cost check is true, escaping the loop.
+
+                    elif balence >= coin: # Else balence is bigger than the coins we have
+                        print(f"£{coin:.2f} Returned") # Return the biggest coin first
+                        balence = balence - coin # Takeaway the coin from the amount left
+                        balence = round(balence, 1) # Round it to fix python maths.
                 
 
-                cost_check = True
+
+        # Where code actually starts running ---------------------------------------------------
+
+        print(" Cereal Bar = 1 \n Doritos = 2 \n Squares = 3 \n Ruffles = 4 \n Walkers = 5 \n Freddo = 6 \n Twix = 7 \n Bounty = 8 \n Chocolate Bar = 9 \n Bottled Water = 10 \n Fanta = 11 \n Coke = 12 \n Haribo = 13 \n Moam = 14") # Prints itemlist to the user each item on a new line.
+        balence = coinsystem(balence) # Calls the coin system function and takes balence as a returned value.
+        cost = itemselection(confirm, cost, item_cost, check, cost_of_item, items) # Calls item selection and holds coin as a returned value.
+        checkchange(cost, balence, paid, cost_check, change_check, correct_amount) # Runs costcheck function with parsed variables.
+        print("Any remaning change has been returned if coins allow.") # Prints this message to show sometimes we cannot return all the change.
+        print(f"Now pushing items: ") # Shows message after items have been paid for. 
+        start_system_check = False # Set's system check to false if it was not already to ensure it does not re-run.
+
+
+        # Returns what items they choose, and then + 1 moves to next items ---------
+        for x in range(len(items)): # For number in range of the length of the list called items
+            print(items[item_count]) # Print the number of items in place item
+            item_count = item_count + 1 # Then item count = itemcounts + 1
 
 
 
-        print(" Cereal Bar = 1 \n Doritos = 2 \n Squares = 3 \n Ruffles = 4 \n Walkers = 5 \n Freddo = 6 \n Twix = 7 \n Bounty = 8 \n Chocolate Bar = 9 \n Bottled Water = 10 \n Fanta = 11 \n Coke = 12 \n Haribo = 13 \n Moam = 14")
-        balence = coinsystem(balence)
-        cost = itemselection(confirm, cost, item_cost, check, cost_of_item, items)
-        checkchange(cost, balence, paid, cost_check, change_check, correct_amount)
-        print("Any remaning change has been returned if coins allow.")
-        print(f"Now pushing items: ")
-        start_system_check = False
 
-        for x in range(len(items)):
-            print(items[item_count])
-            item_count = item_count + 1
-
-
-
-while start_system_check == True:
-    startsystem = input("Welcome Customer, please press 1 to procced to purchase or 2 to shutdown machine. ")
-    try:
-        startsystem = int(startsystem)
+# Runs first before actual script to turn on/off machine ---------------------------
+while start_system_check == True: # While true, run this code loop.
+    startsystem = input("Welcome Customer, please press 1 to procced to purchase or 2 to shutdown machine. ") # Asks for the user input to run or shutdown.
+    try: 
+        startsystem = int(startsystem) # Trys to convert to a interger
     except:
-        print("Please only enter 1 or 2")
-        start_system_check = True
-        notint = True
+        print("Please only enter 1 or 2") # If not it runs this and shows error message
+        notint = True # Ensures the error does not flag 2x
+        start_system_check = True # Re-starts the loop for the user
 
 
-    if startsystem == 1:
-        start_system_check = False
-        vending_process(balence, confirm, cost, item_cost, paid, cost_check, change_check, check, cost_of_item, items, list, item_count, correct_amount, start_system_check)
+    if startsystem == 1: 
+        start_system_check = False # If they enter 1, leave the while loop.
+        vending_process(balence, confirm, cost, item_cost, paid, cost_check, change_check, check, cost_of_item, items, list, item_count, correct_amount, start_system_check) # Runs the main code function with all parsed variables.
 
     elif startsystem == 2:
-        print("Shutting down vending machine.")
-        sys.exit()
+        print("Shutting down vending machine.") # If user enters 2, the system is exited.
+        sys.exit() # System Exit
 
     else:
-        if notint == False:
-            print("Please enter 1 or 0.")
+        if notint == False: # Ensures it has not already failed once.
+            print("Please enter 1 or 0.") # Shows error message if not.
 
             
